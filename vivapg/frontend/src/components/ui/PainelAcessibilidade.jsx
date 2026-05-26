@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { createPortal } from 'react-dom'
 
 const IDS_DALTONISMO = [
   'daltonico-protanopia',
@@ -7,18 +8,27 @@ const IDS_DALTONISMO = [
   'daltonico-greyscale',
 ]
 
+// Greyscale usa filter CSS → precisa ficar no #root
+// Os outros são paletas via classes no body → ficam no body
+const IDS_NO_ROOT = ['daltonico-greyscale']
+
 const OPCOES = [
-  { id: 'fonte-grande',           label: '🔤 Fonte grande',           grupo: 'VISÃO' },
-  { id: 'alto-contraste',         label: '🌗 Alto contraste',         grupo: 'VISÃO' },
-  { id: 'daltonico-protanopia',   label: '🎨 Protanopia',             grupo: 'VISÃO', desc: 'vermelho/verde' },
-  { id: 'daltonico-deuteranopia', label: '🎨 Deuteranopia',           grupo: 'VISÃO', desc: 'vermelho/verde' },
-  { id: 'daltonico-tritanopia',   label: '🎨 Tritanopia',             grupo: 'VISÃO', desc: 'azul/amarelo'   },
-  { id: 'daltonico-greyscale',    label: '🎨 Greyscale',              grupo: 'VISÃO', desc: 'acromatopsia'   },
-  { id: 'espacamento',            label: '↕ Espaçamento de texto',    grupo: 'TEXTO' },
-  { id: 'sublinhar',              label: '🔗 Sublinhar links',        grupo: 'TEXTO' },
-  { id: 'cursor-grande',          label: '🖱️ Cursor maior',           grupo: 'NAVEGAÇÃO' },
-  // { id: 'sem-animacoes',          label: '⚡ Reduzir animações',      grupo: 'NAVEGAÇÃO' },
+  { id: 'fonte-grande', label: '🔤 Fonte grande', grupo: 'VISÃO' },
+  { id: 'alto-contraste', label: '🌗 Alto contraste', grupo: 'VISÃO', desc: 'Baixa visão e sensbilidade a luz' },
+  { id: 'daltonico-protanopia', label: '🎨 Protanopia', grupo: 'VISÃO', desc: 'sem vermelho — compensa com azul/laranja' },
+  { id: 'daltonico-deuteranopia', label: '🎨 Deuteranopia', grupo: 'VISÃO', desc: 'sem verde — compensa com azul/laranja' },
+  { id: 'daltonico-tritanopia', label: '🎨 Tritanopia', grupo: 'VISÃO', desc: 'sem azul — compensa com rosa/verde' },
+  // { id: 'daltonico-greyscale', label: '⬛ Escala de cinza', grupo: 'VISÃO', desc: 'acromatopsia' },
+  { id: 'espacamento', label: '↕ Espaçamento de texto', grupo: 'TEXTO' },
+  { id: 'sublinhar', label: '🔗 Sublinhar links', grupo: 'TEXTO' },
+  { id: 'cursor-grande', label: '🖱️ Cursor maior', grupo: 'NAVEGAÇÃO' },
 ]
+
+function getAlvo(id) {
+  return IDS_NO_ROOT.includes(id)
+    ? document.getElementById('root')
+    : document.body
+}
 
 export default function PainelAcessibilidade() {
   const [aberto, setAberto] = useState(false)
@@ -28,37 +38,36 @@ export default function PainelAcessibilidade() {
 
   useEffect(() => {
     Object.entries(ativos).forEach(([id, ativo]) => {
-      document.body.classList.toggle(id, ativo)
+      getAlvo(id)?.classList.toggle(id, ativo)
     })
   }, [])
 
   function toggle(id) {
     const novoValor = !ativos[id]
-    let novo = { ...ativos }
+    const novo = { ...ativos }
 
-    // Se for daltonismo, desativa os outros antes
     if (IDS_DALTONISMO.includes(id)) {
       IDS_DALTONISMO.forEach(d => {
-        document.body.classList.remove(d)
+        getAlvo(d)?.classList.remove(d)
         novo[d] = false
       })
     }
 
     novo[id] = novoValor
-    document.body.classList.toggle(id, novoValor)
+    getAlvo(id)?.classList.toggle(id, novoValor)
     setAtivos(novo)
     localStorage.setItem('acc', JSON.stringify(novo))
   }
 
   function resetar() {
-    OPCOES.forEach(o => document.body.classList.remove(o.id))
+    OPCOES.forEach(o => getAlvo(o.id)?.classList.remove(o.id))
     setAtivos({})
     localStorage.removeItem('acc')
   }
 
   const grupos = [...new Set(OPCOES.map(o => o.grupo))]
 
-  return (
+  const conteudo = (
     <>
       <button
         className="acc-btn"
@@ -103,4 +112,6 @@ export default function PainelAcessibilidade() {
       )}
     </>
   )
+
+  return createPortal(conteudo, document.body)
 }
