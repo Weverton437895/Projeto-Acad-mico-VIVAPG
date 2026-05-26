@@ -213,6 +213,135 @@ body.daltonico-greyscale {
   font-size: 13px;
 }
 
+/* Container relativo para alinhar o menu flutuante */
+.navbar-user-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Transforma o avatar em um botão clicável limpo */
+.navbar-user-dropdown .user-avatar {
+  cursor: pointer;
+  border: none;
+  background-color: #d0e1fd; /* Cor leve para o fundo da bola */
+  color: #0f2c59;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease;
+}
+
+.navbar-user-dropdown .user-avatar:hover {
+  transform: scale(1.05);
+}
+
+/* O Menu Dropdown em si (estilo caixinha flutuante da image_50e852.png) */
+.dropdown-menu {
+  position: absolute;
+  right: 0;
+  top: 50px; /* Joga um pouco abaixo do avatar */
+  background-color: #ffffff;
+  min-width: 260px;
+  border-radius: 12px;
+  box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.15);
+  padding: 16px 0;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  animation: fadeInDropdown 0.2s ease-out;
+}
+
+/* Cabeçalho interno do dropdown (Nome e Email) */
+.dropdown-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 16px 12px 16px;
+}
+
+.dropdown-avatar-grande {
+  width: 46px;
+  height: 46px;
+  background-color: #4a6fa5;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.dropdown-user-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.dropdown-nome {
+  font-weight: 600;
+  color: #1f2937;
+  font-size: 14px;
+}
+
+.dropdown-email {
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.dropdown-divider {
+  border: 0;
+  border-top: 1px solid #f3f4f6;
+  margin: 6px 0;
+}
+
+/* Itens de Link clicáveis dentro do Dropdown */
+.dropdown-item {
+  padding: 10px 16px;
+  text-align: left;
+  background: none;
+  border: none;
+  color: #4b5563;
+  font-size: 14px;
+  text-decoration: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+}
+
+.dropdown-item:hover {
+  background-color: #f3f4f6;
+  color: #111827;
+}
+
+/* Botão específico de Sair */
+.btn-sair-dropdown {
+  color: #dc2626;
+  font-weight: 500;
+}
+
+.btn-sair-dropdown:hover {
+  background-color: #fef2f2;
+  color: #b91c1c;
+}
+
+/* Animação suave de surgimento */
+@keyframes fadeInDropdown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 /* ── Hero ───────────────────────────────────────────────── */
 .hero {
   background: var(--azul-med);
@@ -453,7 +582,7 @@ body.daltonico-greyscale {
   justify-content: space-between;
   font-size: 13px;
   color: #374151;
-  padding: 4px 0;
+  padding: 6px 20px;
   border-bottom: 1px solid var(--cinza-bg);
 }
 .indice-item strong {
@@ -1013,6 +1142,130 @@ body.daltonico-greyscale {
   color: var(--azul-btn);
   font-weight: 600;
   text-decoration: underline;
+}
+
+/* CONTAINER PAI COBRINDO TUDO DINAMICAMENTE */
+.auth-wrap {
+  width: 100% !important;
+  min-height: 100vh !important; /* Ocupa pelo menos o tamanho total da tela */
+  background-color: #0b2545 !important; /* O azul escuro padrão */
+  
+  display: flex !important;
+  flex-direction: column !important; /* Garante empilhamento correto se necessário */
+  align-items: center !important;
+  justify-content: center !important;
+  
+  padding: 60px 20px !important; /* Espaço generoso nas bordas superiores e inferiores */
+  box-sizing: border-box !important;
+}
+
+/* O CARD BRANCO AJUSTADO */
+/* 1. CORREÇÃO DA ESTRUTURA GLOBAL DA PÁGINA */
+body.auth-wrap.tela-cadastro {
+  min-height: 100vh !important;
+  height: auto !important; /* Libera a altura travada para que a página possa esticar */
+  overflow-y: auto !important; /* Garante que o scroll vertical funcione se o conteúdo crescer */
+  background-color: #0b2545; /* Deixa o fundo padrão do site já no azul escuro */
+  margin: 0;
+  padding: 0;
+}
+
+/* 2. AJUSTE REFORÇADO DO CONTAINER DE CADASTRO */
+.auth-wrap.auth-wrap.tela-cadastro {
+  width: 100% !important;
+  min-height: 100vh !important;
+  background-color: #0b2545 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 80px 20px !important; /* Aumentamos o padding para dar respiro quando abrir a aba */
+  box-sizing: border-box !important;
+}
+
+/* 3. O CARD BRANCO */
+.auth-box {
+  background-color: #ffffff !important;
+  padding: 40px !important;
+  border-radius: 16px !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3) !important;
+  width: 100% !important;
+  max-width: 480px !important;
+  box-sizing: border-box !important;
+  position: relative !important;
+}
+
+.auth-box {
+  background-color: #ffffff !important;
+  padding: 40px !important;
+  border-radius: 16px !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3) !important;
+  width: 100% !important;
+  max-width: 480px !important;
+  box-sizing: border-box !important;
+  
+  /* Impede que o card colapse se o conteúdo interno se expandir */
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+/* CONTAINER PAI: Garante o azul escuro infinito na tela toda */
+.auth-wrap.tela-cadastro {
+  min-height: calc(100vh - 62px); /* Desconta a altura exata da Navbar */
+  width: 100%;
+  background-color: #0b2545;     /* O azul escuro idêntico ao da sua Navbar */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;            /* Espaçamento de segurança para não colar nas bordas em telas pequenas */
+  box-sizing: border-box;
+}
+
+/* O CARD BRANCO: Centralizado e com cantos suaves */
+.auth-box {
+  background-color: #ffffff;
+  padding: 40px;
+  border-radius: 16px;          /* Cantos arredondados modernos */
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2); /* Sombra suave para dar profundidade sobre o azul */
+  width: 100%;
+  max-width: 480px;             /* Largura perfeita para não esticar demais */
+  box-sizing: border-box;
+}
+
+/* ── MELHORIA COMPLEMENTAR NO CARD DE REQUISITOS ── */
+.senha-requisitos {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 8px !important;
+  margin-top: 10px !important;
+  padding: 12px 14px !important;
+  background-color: #f8fafc !important; /* Um cinza bem clarinho e limpo */
+  border-radius: 8px !important;
+  border: 1px solid #e2e8f0 !important;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.requisito-item {
+  font-size: 13px !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  line-height: 1.4 !important;
+}
+
+/* Cores de feedback mais suaves e profissionais */
+.requisito-item.invalido {
+  color: #64748b !important; /* Texto cinza escuro legível */
+}
+.requisito-item.invalido .requisito-icone {
+  color: #ef4444 !important; /* Vermelho flat para o '✕' */
+}
+
+.requisito-item.valido {
+  color: #15803d !important; /* Verde floresta para o texto */
+}
+.requisito-item.valido .requisito-icone {
+  color: #16a34a !important; /* Verde vivo para o '✓' */
 }
 
 /* ── Acessibilidade botão ────────────────────────────────── */
@@ -1605,4 +1858,29 @@ input:focus-visible {
   height: 100vh;
   display: flex;
   flex-direction: column;
+}
+/* Seleção e Destaque da Página Atual na Navbar */
+.navbar-nav .nav-link.active {
+  color: var(--branco) !important;
+  border: 2px solid #ffffff; /* Borda laranja de seleção */
+  border-radius: 6px;
+  background-color: rgba(255, 255, 255, 0.05);
+  font-weight: bold;
+}
+
+.viva-footer {
+  width: 100%;
+  padding: 24px 20px;
+  color: #94a3b8; /* Texto cinza claro, elegante e discreto */
+  text-align: center;
+  font-size: 12px;
+  line-height: 1.6;
+  margin-top: auto; /* Se usar flexbox no container pai, isso joga o footer sempre pro final da tela */
+}
+
+.viva-footer p {
+  margin: 4px 0;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
 }

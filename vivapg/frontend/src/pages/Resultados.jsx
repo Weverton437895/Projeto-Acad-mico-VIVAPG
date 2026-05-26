@@ -25,8 +25,8 @@ export default function Resultados() {
   async function buscar(p) {
     setLoading(true)
     try {
-      const res = await recomendacaoService.buscar(p)
-      setResultados(res.data)
+      const res = await recomendacaoService.buscar(p)// Chamada HTTP (GET ou POST) para o seu backend
+      setResultados(res.data) // Aqui ele pega os dados retornados do banco pelo backend e salva no estado
     } catch (e) {
       console.error(e)
     } finally {
@@ -49,6 +49,7 @@ export default function Resultados() {
         <h1>Bairros Recomendados</h1>
         <p>Com base no seu perfil, encontramos os bairros mais compatíveis para você</p>
       </div>
+
 
       {!estaLogado && (
         <div className="aviso-login">
@@ -83,26 +84,7 @@ export default function Resultados() {
 
       {loading && <div className="loading">🔍 Buscando bairros compatíveis com seu perfil...</div>}
 
-      {/* Nenhum bairro compatível com a renda */}
-      {!loading && resultados.length === 0 && temRenda && (
-        <div className="sem-resultados-renda">
-          <div className="sem-renda-icone">💰</div>
-          <h3>Nenhum bairro compatível com sua renda</h3>
-          <p>
-            Não encontramos bairros com aluguel compatível com a faixa selecionada
-            {perfil?.tipoBairro ? ` no tipo "${perfil.tipoBairro}"` : ''}.
-            Tente uma faixa de renda maior ou mude o tipo de bairro.
-          </p>
-          <Link to="/" className="btn-voltar">← Ajustar preferências</Link>
-        </div>
-      )}
-
-      {!loading && resultados.length === 0 && !temRenda && (
-        <div className="sem-resultados">
-          ⚠️ Nenhum bairro encontrado com esses filtros.
-          <Link to="/" className="btn-voltar">← Voltar e ajustar</Link>
-        </div>
-      )}
+     
 
       {/* Resultados */}
       {!loading && resultados.length > 0 && (
@@ -126,8 +108,16 @@ export default function Resultados() {
                 onFavoritado={carregarHistorico}
               />
             ))}
+
           </div>
+               <footer className="viva-footer">
+              <p>
+                Os índices apresentados são de caráter estritamente demonstrativo para validação do algoritmo de recomendação do MVP, baseados na média proporcional do Plano Diretor Municipal. Não devem ser utilizados como estatística oficial de segurança pública.
+              </p>
+              <p>© 2026 VivaPG - Projeto Acadêmico Fatec Praia Grande</p>
+          </footer>
         </section>
+        
       )}
     </main>
   )

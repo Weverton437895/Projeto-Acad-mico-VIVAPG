@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
+import { recomendacaoService } from '../services/api' // IMPORT NECESSÁRIO para validar na Home
 
 const PRIORIDADES = ['Segurança', 'Educação', 'Saúde', 'Transporte', 'Lazer', 'Tranquilidade']
 
@@ -12,7 +13,6 @@ const RENDA_MEDIA = {
 
 const STORAGE_KEY = 'vivapg_busca'
 
-// Carrega dados do sessionStorage antes de inicializar o estado
 function carregarSalvo() {
   try {
     const salvo = sessionStorage.getItem(STORAGE_KEY)
@@ -25,7 +25,6 @@ export default function Home() {
   const navigate = useNavigate()
   const salvo    = carregarSalvo()
 
-  // Inicializa estado já com dados salvos (sem piscar)
   const [form, setForm] = useState(
     salvo?.form || { tipoBairro: '', faixaRenda: '', ocupacao: '' }
   )
@@ -34,7 +33,11 @@ export default function Home() {
   )
   const [erro, setErro] = useState('')
 
-  // Salva automaticamente no sessionStorage sempre que muda
+  // ESTADOS CRIADOS para gerenciar o aviso localmente na Home sem quebrar o componente
+  const [loading, setLoading] = useState(false)
+  const [mostrarAvisoRenda, setMostrarAvisoRenda] = useState(false)
+  const [mostrarAvisoFiltros, setMostrarAvisoFiltros] = useState(false)
+
   useEffect(() => {
     try {
       sessionStorage.setItem(STORAGE_KEY, JSON.stringify({ form, prios }))
@@ -45,7 +48,7 @@ export default function Home() {
     setPrios(prev => prev.includes(p) ? prev.filter(x => x !== p) : [...prev, p])
   }
 
-  function handleBuscar() {
+  async function handleBuscar() {
     if (!form.faixaRenda) {
       setErro('Selecione sua faixa de renda para continuar.')
       return
@@ -54,7 +57,12 @@ export default function Home() {
       setErro('Selecione ao menos uma prioridade.')
       return
     }
+    
     setErro('')
+    setMostrarAvisoRenda(false)
+    setMostrarAvisoFiltros(false)
+    setLoading(true)
+
     const perfil = {
       tipoBairro:  form.tipoBairro  || '',
       faixaRenda:  form.faixaRenda,
@@ -67,7 +75,28 @@ export default function Home() {
          .replace(/\s+/g, '_')
       ),
     }
-    navigate('/resultados', { state: { perfil } })
+
+    try {
+      // Faz a busca na API antes de redirecionar o usuário
+      const res = await recomendacaoService.buscar(perfil)
+      
+      if (res.data && res.data.length === 0) {
+        // Se a API retornar vazio e ele informou renda, decide qual bloco de aviso exibir
+        if (perfil.rendaMensal > 0) {
+          setMostrarAvisoRenda(true)
+        } else {
+          setMostrarAvisoFiltros(true)
+        }
+      } else {
+        // Se encontrou bairros compatíveis, navega para a página de resultados
+        navigate('/resultados', { state: { perfil } })
+      }
+    } catch (e) {
+      console.error(e)
+      setErro('Erro ao consultar os bairros. Tente novamente mais tarde.')
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
@@ -142,10 +171,36 @@ export default function Home() {
             </div>
           </fieldset>
 
-          <button className="btn-buscar" onClick={handleBuscar}>
-            🔍 Buscar Bairros Recomendados
+          <button className="btn-buscar" onClick={handleBuscar} disabled={loading}>
+            {loading ? 'Buscando...' : ' Buscar Bairros Recomendados'}
           </button>
         </div>
+
+        {/* MUDANÇA EXECUTADA: Uso dos estados locais para evitar erros na renderização */}
+        {mostrarAvisoRenda && (
+          <div className="sem-resultados-renda" style={{ marginTop: '20px' }}>
+            <div className="sem-renda-icone"></div>
+            <h3>Nenhum bairro compatível com sua renda</h3>
+            <p>
+              Não encontramos bairros com aluguel compatível com a faixa selecionada
+              {form.tipoBairro ? ` no tipo "${form.tipoBairro}"` : ''}.
+              Tente uma faixa de renda maior ou mude o tipo de bairro.
+            </p>
+            <button onClick={() => setMostrarAvisoRenda(false)} className="btn-voltar" style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'inherit', font: 'inherit', textDecoration: 'underline' }}>
+              ← Ajustar preferências
+            </button>
+          </div>
+        )}
+
+        {mostrarAvisoFiltros && (
+          <div className="sem-resultados" style={{ marginTop: '20px' }}>
+            ⚠️ Nenhum bairro encontrado com esses filtros.
+            <button onClick={() => setMostrarAvisoFiltros(false)} className="btn-voltar" style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'inherit', font: 'inherit', textDecoration: 'underline', marginLeft: '10px' }}>
+              ← Voltar e ajustar
+            </button>
+          </div>
+        )}
+
       </section>
     </main>
   )

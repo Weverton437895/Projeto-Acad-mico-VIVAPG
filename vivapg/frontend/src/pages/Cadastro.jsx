@@ -9,12 +9,26 @@ export default function Cadastro() {
   const [form,  setForm]  = useState({ nome: '', email: '', senha: '', confirmar: '' })
   const [erros, setErros] = useState({})
   const [erro,  setErro]  = useState('')
+  
+  // Estado para saber se o usuário clicou no campo de senha
+  const [senhaFocada, setSenhaFocada] = useState(false)
+
+  const temOitoCaracteres = form.senha.length >= 8
+  const temCaractereEspecial = /[\W_]/.test(form.senha)
+  const temLetraMaiuscula = /[A-Z]/.test(form.senha)
+  const temNumero = /[0-9]/.test(form.senha)
 
   function validar() {
     const e = {}
     if (!form.nome.trim())                              e.nome     = 'O nome é obrigatório.'
     if (!form.email || !/\S+@\S+\.\S+/.test(form.email)) e.email  = 'Informe um e-mail válido.'
-    if (!form.senha || form.senha.length < 8)           e.senha    = 'Mínimo 8 caracteres.'
+    
+    if (!form.senha) {
+      e.senha = 'A senha é obrigatória.'
+    } else if (!temOitoCaracteres || !temCaractereEspecial) {
+      e.senha = 'A senha deve conter no mínimo 8 caracteres e 1 caractere especial.'
+    }
+
     if (form.confirmar !== form.senha)                  e.confirmar = 'As senhas não coincidem.'
     return e
   }
@@ -39,14 +53,33 @@ export default function Cadastro() {
         id={id} type={tipo} placeholder={placeholder}
         value={form[id]}
         onChange={e => setForm({ ...form, [id]: e.target.value })}
+        onFocus={() => id === 'senha' && setSenhaFocada(true)}
         autoComplete={tipo === 'password' ? 'new-password' : id}
       />
       {erros[id] && <span className="campo-erro">{erros[id]}</span>}
+
+      {/* MODIFICAÇÃO: Aparece se estiver focado OU se o preenchimento automático do Chrome colocar texto ali */}
+      {id === 'senha' && (senhaFocada || form.senha.length > 0) && (
+        <div className="senha-requisitos">
+          <div className={`requisito-item ${temOitoCaracteres ? 'valido' : 'invalido'}`}>
+            <span className="requisito-icone">{temOitoCaracteres ? '✓' : '✕'}</span> Mínimo de 8 caracteres
+          </div>
+          <div className={`requisito-item ${temCaractereEspecial ? 'valido' : 'invalido'}`}>
+            <span className="requisito-icone">{temCaractereEspecial ? '✓' : '✕'}</span> Pelo menos 1 caractere especial (!@#$...)
+          </div>
+          <div className={`requisito-item ${temLetraMaiuscula ? 'valido' : 'invalido'}`}>
+            <span className="requisito-icone">{temLetraMaiuscula ? '✓' : '✕'}</span> Pelo menos 1 letra maiscula  (!@#$...)
+          </div>
+          <div className={`requisito-item ${temNumero ? 'valido' : 'invalido'}`}>
+            <span className="requisito-icone">{temNumero ? '✓' : '✕'}</span> Pelo menos 1 numero  (!@#$...)
+          </div>
+        </div>
+      )}
     </div>
   )
 
   return (
-    <main className="auth-wrap">
+    <main className="auth-wrap tela-cadastro">
       <div className="auth-box">
         <div className="auth-logo">VivaPG</div>
         <p className="auth-sub">Crie sua conta para salvar bairros e comparações</p>
@@ -56,7 +89,7 @@ export default function Cadastro() {
         <form onSubmit={handleSubmit} noValidate>
           {campo('nome',      'Nome completo',   'text',     'Seu nome')}
           {campo('email',     'E-mail',          'email',    'seu@email.com')}
-          {campo('senha',     'Senha',           'password', 'Mínimo 8 caracteres')}
+          {campo('senha',     'Senha',           'password', 'Crie uma senha forte')}
           {campo('confirmar', 'Confirmar senha', 'password', 'Repita a senha')}
           <button type="submit" className="btn-auth">✓ Criar minha conta</button>
         </form>
