@@ -103,7 +103,7 @@ export default function ConhecaPG() {
         Analise a distribuição imobiliária oficial e clique nos círculos para inspecionar os indicadores urbanos de cada bairro.
       </p>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '3fr 1fr', gap: '20px' }}>
+      <div className="conheca-grid" style={{ display:'grid', gap:'20px' }}>
         
         {/* Container do Mapa (Carrega na hora) */}
         <div 

@@ -1706,11 +1706,7 @@ input:focus-visible {
   cursor: default;
 }
 
-@media (max-width: 768px) {
-  .comp-full-grid {
-    grid-template-columns: 1fr;
-  }
-}
+
 
 /* ── Perfil info na comparação ───────────────────────────── */
 .comp-perfil-info {
@@ -1719,7 +1715,7 @@ input:focus-visible {
   border-radius: 8px;
   padding: 10px 16px;
   font-size: 13px;
-  color: #1e40af;
+  color: #000000;
   margin-bottom: 16px;
 }
 
@@ -1829,14 +1825,6 @@ input:focus-visible {
   opacity: 0.9;
 }
 
-@media (max-width: 768px) {
-  .mapa-footer {
-    grid-template-columns: repeat(3, 1fr);
-  }
-  .mapa-modal {
-    max-height: 95vh;
-  }
-}
 
 .leaflet-container {
   font-family: inherit;
@@ -1883,4 +1871,503 @@ input:focus-visible {
   max-width: 800px;
   margin-left: auto;
   margin-right: auto;
+}
+
+/* ── TELA SOBRE VIVAPG ───────────────────────────────────── */
+
+.sobre-hero {
+  text-align: center;
+  padding: 40px 0 20px;
+}
+
+.sobre-hero h1 {
+  font-size: 36px;
+  font-weight: 800;
+  color: #0b2545; /* Azul Escuro */
+  margin-bottom: 8px;
+}
+
+.sobre-hero .subtitulo {
+  font-size: 18px;
+  color: #64748b;
+  max-width: 650px;
+  margin: 0 auto;
+  line-height: 1.5;
+}
+
+/* Grid de Informações de Texto */
+.sobre-grid-info {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin: 40px 0;
+}
+
+.sobre-card-texto {
+  background: #ffffff;
+  padding: 30px;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+.sobre-card-texto h2 {
+  font-size: 20px;
+  color: #0b2545;
+  margin-bottom: 16px;
+  font-weight: 700;
+}
+
+.sobre-card-texto p {
+  font-size: 15px;
+  color: #334155;
+  line-height: 1.7;
+  margin-bottom: 12px;
+}
+
+/* Seção de Análise de Filtros */
+.sobre-analise-section {
+  margin: 50px 0;
+  background: #f8fafc;
+  padding: 40px 24px;
+  border-radius: 16px;
+  border: 1px solid #e2e8f0;
+}
+
+.sobre-header-interna {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.sobre-header-interna h2 {
+  font-size: 22px;
+  color: #0b2545;
+  font-weight: 700;
+}
+
+.sobre-header-interna p {
+  color: #64748b;
+  font-size: 15px;
+  margin-top: 6px;
+}
+
+.sobre-grid-cards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.sobre-card-item {
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  border: 1px solid #e2e8f0;
+  text-align: center;
+  transition: transform 0.2s ease;
+}
+
+.sobre-card-item:hover {
+  transform: translateY(-2px);
+}
+
+.sobre-card-icone {
+  font-size: 32px;
+  display: block;
+  margin-bottom: 12px;
+}
+
+.sobre-card-item h3 {
+  font-size: 16px;
+  color: #0b2545;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.sobre-card-item p {
+  font-size: 13px;
+  color: #475569;
+  line-height: 1.6;
+}
+
+/* Bloco Técnico Fatores (FATEC) */
+.sobre-tecnico-box {
+  background: #0b2545;
+  color: #f1f5f9;
+  padding: 36px;
+  border-radius: 12px;
+  margin: 40px 0 60px;
+}
+
+.sobre-tecnico-box h2 {
+  font-size: 22px;
+  color: #ffffff;
+  margin-bottom: 16px;
+  font-weight: 700;
+}
+
+.sobre-tecnico-box p {
+  font-size: 14px;
+  line-height: 1.7;
+  color: #cbd5e1;
+  margin-bottom: 12px;
+}
+
+.sobre-tecnico-box strong {
+  color: #38bdf8; /* Azul claro para dar destaque técnico às palavras chave */
+}
+
+/* ==========================================================================
+   ───────────────── MOBILE RESPONSIVO FINAL TOTALMENTE BLINDADO ─────────────────
+   ========================================================================== */
+@media (max-width: 768px) {
+
+  /* ===== BASE & CONTAINERS ESPAÇAMENTO ===== */
+  body {
+    overflow-x: hidden;
+  }
+
+  .page-container,
+  .conta-body,
+  .hero-full,
+  .auth-wrap,
+  .conheca-wrapper {
+    padding: 24px 20px !important;
+    padding-top: 85px !important; /* Espaço para o topo fixo */
+    padding-bottom: 125px !important; /* Espaço para o menu inferior flutuante */
+    box-sizing: border-box !important;
+  }
+
+  /* ===== HEADER DO TOPO FIXO ===== */
+  header.navbar {
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    width: 100% !important;
+    height: 60px !important;
+    background: var(--azul) !important;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    padding: 0 20px !important;
+    z-index: 10000 !important;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2) !important;
+  }
+
+  /* Mantém o texto da logo intacto e legível no canto esquerdo */
+  .navbar-logo {
+    display: block !important;
+    font-size: 20px !important;
+    font-weight: 700 !important;
+    color: var(--branco) !important;
+  }
+
+  /* ===== INTERFACE CONDICIONAL DO USUÁRIO NO TOPO DIREITO ===== */
+  .navbar-auth {
+    display: flex !important;
+    position: relative !important;
+    width: auto !important;
+    height: auto !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+  }
+
+  /* CASO LOGADO: Mantém e força o posicionamento da bolinha do avatar */
+  .navbar-user-dropdown,
+  .user-avatar {
+    display: flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    width: 38px !important;
+    height: 38px !important;
+    border-radius: 50% !important;
+    background-color: var(--azul-med) !important;
+    color: var(--branco) !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-weight: 700 !important;
+    font-size: 14px !important;
+    padding: 0 !important;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15) !important;
+  }
+
+  /* Ajusta o Dropdown de opções da conta para abrir de forma correta no Mobile */
+  .dropdown-menu {
+    position: fixed !important;
+    top: 65px !important;
+    right: 16px !important;
+    width: calc(100% - 32px) !important;
+    max-width: 300px !important;
+    border-radius: 14px !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25) !important;
+    z-index: 10002 !important;
+    padding: 16px !important;
+  }
+
+  /* CASO NÃO LOGADO */
+  .navbar-auth .btn-entrar,
+  .navbar-auth .btn-cadastrar {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    height: 32px !important;
+    padding: 0 12px !important;
+    font-size: 12px !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    border-radius: 8px !important;
+    margin-left: 8px !important;
+    transition: 0.2s;
+  }
+
+  .navbar-auth .btn-entrar {
+    background: transparent !important;
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+  }
+
+  .navbar-auth .btn-cadastrar {
+    background: var(--branco) !important;
+    color: var(--azul) !important;
+    border: none !important;
+  }
+
+  /* ===== BARRA DE NAVEGAÇÃO INFERIOR FLUTUANTE ===== */
+  .navbar-nav {
+    position: fixed !important;
+    bottom: 20px !important;
+    top: auto !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    width: calc(100% - 32px) !important;
+    max-width: 420px !important;
+    height: 62px !important;
+    background: #0b2545 !important;
+    border-radius: 25px !important;
+    padding: 0 12px 0 16px !important;
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    z-index: 9999 !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35) !important;
+    transition: transform 0.3s ease, opacity 0.3s ease !important;
+  }
+
+  /* Injeção da classe para descer a pílula flutuante */
+  .navbar-nav.minimizado {
+    transform: translate(-50%, 46px) !important;
+    opacity: 0.6 !important;
+  }
+
+  /* Roda a setinha para cima quando o menu está recolhido */
+  .navbar-nav.minimizado .btn-minimizar-barra {
+    transform: rotate(180deg);
+  }
+
+  /* Exibe e estiliza o botão unicamente no mobile */
+  .navbar-nav .btn-minimizar-barra {
+    display: flex !important;
+    background: transparent !important;
+    border: none !important;
+    color: rgba(255, 255, 255, 0.5) !important;
+    font-size: 11px !important;
+    padding: 0 6px 0 10px !important;
+    height: 100% !important;
+    align-items: center !important;
+    justify-content: center !important;
+    cursor: pointer !important;
+    transition: transform 0.2s ease;
+  }
+
+  /* Customização dos links internos da Pílula inferior */
+  .navbar-nav .nav-link,
+  .navbar-nav a {
+    flex: 1 !important;
+    text-align: center !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: 10px !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.4px !important;
+    color: rgba(255, 255, 255, 0.55) !important;
+    padding: 8px 4px !important;
+    margin: 0 2px !important;
+    border-radius: 12px !important;
+    border: none !important;
+  }
+
+  .navbar-nav .nav-link.active,
+  .navbar-nav a:active {
+    background: rgba(255, 255, 255, 0.14) !important;
+    color: #ffffff !important;
+  }
+
+  /* ===== HERO & PÁGINA INICIAL ===== */
+  .hero,
+  .hero-full {
+    padding: 35px 20px 120px !important;
+    text-align: center !important;
+    min-height: auto !important;
+  }
+
+  .hero h1,
+  .hero-full h1 {
+    font-size: 26px !important;
+    line-height: 1.3 !important;
+    margin-bottom: 14px !important;
+  }
+
+  .hero p,
+  .hero-full p {
+    font-size: 15px !important;
+    line-height: 1.6 !important;
+    margin-bottom: 24px !important;
+    padding: 0 10px !important;
+  }
+
+  .search-box {
+    width: 100% !important;
+    padding: 24px 20px !important;
+    border-radius: 18px !important;
+  }
+
+  /* ===== ADAPTAÇÃO AUTOMÁTICA EM UM GRIDS ===== */
+  .form-grid,
+  .form-grid-3,
+  .home-grid,
+  .search-box > div,
+  .comparacao-grid,
+  .comparacao-selects,
+  .bairros-grid,
+  .historico-grid,
+  .fav-grid,
+  .stats-grid,
+  .conheca-grid,
+  .sobre-grid-info,
+  .sobre-grid-cards,
+  .comp-full-grid {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    width: 100% !important;
+    gap: 18px !important;
+  }
+
+  .form-field {
+    width: 100% !important;
+    margin-bottom: 4px !important;
+  }
+
+  .form-field input,
+  .form-field select,
+  textarea {
+    width: 100% !important;
+    height: 50px !important;
+    font-size: 16px !important;
+    border-radius: 10px !important;
+    padding: 0 16px !important;
+  }
+
+  .btn-buscar,
+  .btn-auth,
+  .btn-comparar,
+  .btn-favoritar,
+  .btn-mapa,
+  .senha-row button {
+    width: 100% !important;
+    height: 50px !important;
+    font-size: 16px !important;
+    border-radius: 10px !important;
+    margin-top: 6px !important;
+  }
+
+  .prioridades-tags {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    gap: 10px !important;
+    padding: 6px 0 !important;
+  }
+
+  /* ===== CARDS E SEÇÕES ===== */
+  .bairro-card,
+  .historico-card,
+  .fav-card,
+  .comparacao-card,
+  .comp-full-card,
+  .config-section,
+  .sobre-card-texto,
+  .sobre-card-item {
+    width: 100% !important;
+    padding: 20px !important;
+    border-radius: 16px !important;
+  }
+
+  .bairro-card-header,
+  .fav-header,
+  .comp-card-header {
+    flex-direction: column !important;
+    gap: 10px !important;
+    align-items: flex-start !important;
+  }
+
+  .indices-grid {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 10px !important;
+  }
+
+  /* ===== CONFIGURAÇÕES E MODAL ===== */
+  .comp-saved-actions,
+  .fav-actions,
+  .senha-row,
+  .config-section.danger {
+    flex-direction: column !important;
+    gap: 12px !important;
+  }
+
+  .btn-reabrir, .btn-excluir, .btn-comp, .btn-remover, .btn-sair, .btn-excluir-conta, .btn-salvar {
+    width: 100% !important;
+  }
+
+  .mapa-modal {
+    width: 95vw !important;
+    height: 80vh !important;
+  }
+  
+  .mapa-footer {
+    grid-template-columns: 1fr 1fr !important;
+  }
+
+  /* ===== RODAPÉ ===== */
+  .viva-footer {
+    padding: 30px 20px 135px !important;
+  }
+}
+
+/* ==========================================================================
+   ─────────────────── COMPUTAÇÃO / DESKTOP (FORA DO MOBILE) ───────────────────
+   ========================================================================== */
+@media (min-width: 769px) {
+  /* Some com o botão de minimizar completamente em telas grandes */
+  .navbar-nav .btn-minimizar-barra,
+  header.navbar .btn-minimizar-barra,
+  button.btn-minimizar-barra,
+  .btn-minimizar-barra {
+    display: none !important;
+  }
+}
+
+/* ===== PREVENÇÃO CONTRA VAZAMENTO LATERAL GLOBAL ===== */
+* {
+  box-sizing: border-box;
+}
+html, body {
+  overflow-x: hidden;
+  width: 100%;
+}
+img {
+  max-width: 100%;
+  height: auto;
 }

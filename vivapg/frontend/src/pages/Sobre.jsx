@@ -1,27 +1,79 @@
 import React from 'react'
 
 export default function Sobre() {
-  return (
-    <main style={{ maxWidth: '800px', margin: '40px auto', padding: '0 20px', fontFamily: 'Arial, sans-serif', color: '#111827' }}>
-      <h1 style={{ color: '#0b2545', marginBottom: '10px' }}>Sobre o VivaPG</h1>
-      <p style={{ color: '#6b7280', fontSize: '16px', marginBottom: '20px', fontStyle: 'italic' }}>Projeto Integrador — FATEC Praia Grande</p>
-      <hr style={{ border: '0', borderTop: '1px solid #d1d5db', marginBottom: '20px' }} />
-      
-      <section style={{ marginBottom: '25px' }}>
-        <h2 style={{ color: '#1a3a6b', fontSize: '20px', marginBottom: '10px' }}>O Motivo de Existirmos</h2>
-        <p style={{ lineHeight: '1.6', color: '#374151' }}>
-          O crescimento habitacional e imobiliário de Praia Grande traz desafios para quem quer morar ou investir na cidade. 
-          O <strong>VivaPG</strong> nasceu com o propósito de facilitar a tomada de decisão através de tecnologia e dados consolidados.
-        </p>
-      </section>
+  const consideracoes = [
+    { icone: '💰', titulo: 'Orçamento', desc: 'Faixa de renda mensal e compatibilidade real com a média de aluguel local.' },
+    { icone: '💼', titulo: 'Ocupação', desc: 'Seu perfil no dia a dia: estudante, CLT, autônomo, aposentado, família ou home office.' },
+    { icone: '🎯', titulo: 'Prioridades', desc: 'O que você mais valoriza: segurança, educação, saúde, transporte, lazer ou tranquilidade.' },
+    { icone: '🏖️', titulo: 'Estilo do Bairro', desc: 'A vibe ideal para morar: perfil praiano, urbano, puramente residencial ou pacato.' }
+  ]
 
-      <section style={{ marginBottom: '25px' }}>
-        <h2 style={{ color: '#1a3a6b', fontSize: '20px', marginBottom: '10px' }}>Nossa Missão</h2>
-        <p style={{ lineHeight: '1.6', color: '#374151' }}>
-          Ajudar famílias, estudantes e profissionais a encontrarem a localização perfeita baseando-se no estilo de vida, 
-          orçamento disponível e necessidades individuais de infraestrutura urbana, gerando bem-estar e assertividade na escolha do seu novo lar.
+  return (
+    <div className="page-wrapper" style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+      
+      <main className="page-container" style={{ flex: '1 0 auto' }}>
+        
+        {/* Seção Hero - Título Principal */}
+        <section className="sobre-hero">
+          <h1>Conheça o VivaPG</h1>
+          <p className="subtitulo">O seu guia inteligente para encontrar o lar perfeito em Praia Grande — SP</p>
+        </section>
+
+        {/* Bloco de Conteúdo: O que é e Por que existe */}
+        <div className="sobre-grid-info">
+          <article className="sobre-card-texto">
+            <h2>✨ O que é o VivaPG?</h2>
+            <p>
+              O VivaPG é um sistema web de recomendação de bairros desenvolvido para ajudar pessoas 
+              que desejam se mudar para Praia Grande — SP. O sistema analisa o perfil detalhado do 
+              usuário e indica de forma instantânea os bairros mais compatíveis com seu estilo de vida, 
+              faixa de renda e prioridades pessoais.
+            </p>
+          </article>
+
+          <article className="sobre-card-texto">
+            <h2>🚀 Por que o VivaPG existe?</h2>
+            <p>
+              Praia Grande recebe milhares de novos moradores a cada ano, vindos principalmente da 
+              Grande São Paulo. A maioria dessas pessoas não conhece a geografia da cidade e enfrenta 
+              dificuldades em escolher o local certo — precisando consultar múltiplos portais, grupos de 
+              redes sociais e imobiliárias sem encontrar uma resposta objetiva.
+            </p>
+            <p>
+              O VivaPG nasceu para centralizar as principais características de cada bairro e entregar 
+              uma recomendação altamente personalizada, clara e intuitiva.
+            </p>
+          </article>
+        </div>
+
+        {/* Seção Central: O que o algoritmo analisa */}
+        <section className="sobre-analise-section">
+          <div className="sobre-header-interna">
+            <h2>📊 O que o sistema considera na recomendação?</h2>
+            <p>Cruzamos seus dados com nossa matriz estatística para ranquear a melhor opção:</p>
+          </div>
+
+          <div className="sobre-grid-cards">
+            {consideracoes.map((item, index) => (
+              <div key={index} className="sobre-card-item">
+                <span className="sobre-card-icone">{item.icone}</span>
+                <h3>{item.titulo}</h3>
+                <p>{item.desc}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+      </main>
+
+      {/* Footer Geral 100% Esticado */}
+      <footer className="viva-footer">
+        <p>
+          Os índices apresentados são de caráter estritamente demonstrativo para validação do algoritmo de recomendação do MVP, baseados na média proporcional do Plano Diretor Municipal. Não devem ser utilizados como estatística oficial de segurança pública.
         </p>
-      </section>
-    </main>
+        <p>© 2026 VivaPG - Projeto Acadêmico Fatec Praia Grande</p>
+      </footer>
+
+    </div>
   )
 }

@@ -1,6 +1,5 @@
 import React, {useState, useEffect, useRef} from 'react'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
-import { NavLink } from "react-router-dom";
 import { useAuth } from '../../context/AuthContext'
 
 export default function Navbar() {
@@ -8,10 +7,11 @@ export default function Navbar() {
   const navigate = useNavigate()
   const location = useLocation()
 
-// Estado para controlar a abertura do dropdown
-const [menuAberto, setMenuAberto] = useState(false)
-// Referência para detectar cliques fora do menu
-const dropdownRef = useRef(null)
+  const [menuAberto, setMenuAberto] = useState(false)
+  const dropdownRef = useRef(null)
+  
+  // Referência para controlar o estado de minimizar da barra
+  const navRef = useRef(null)
 
   function handleLogout() {
     setMenuAberto(false)
@@ -32,10 +32,13 @@ const dropdownRef = useRef(null)
   const iniciais = usuario?.nome
     ? usuario.nome.split(' ').map(n => n[0]).slice(0, 2).join('').toUpperCase()
     : ''
-return (
+
+  return (
     <header className="navbar">
       <Link to="/" className="navbar-logo">VivaPG</Link>
-      <nav className="navbar-nav">
+      
+      {/* Mantida a estrutura exata do seu nav original */}
+      <nav className="navbar-nav" ref={navRef}>
         <Link to="/" className={`nav-link ${location.pathname === '/' ? 'active' : ''}`}>
           Início
         </Link>
@@ -48,11 +51,19 @@ return (
         <Link to="/sobre" className={`nav-link ${location.pathname === '/sobre' ? 'active' : ''}`}>
           Sobre VivaPG
         </Link>
+
+        {/* Adicionado apenas a função de clique no botão que já existia no CSS */}
+        <button 
+          type="button" 
+          className="btn-minimizar-barra"
+          onClick={() => navRef.current?.classList.toggle('minimizado')}
+        >
+          ▼
+        </button>
       </nav>
       
       <div className="navbar-auth">
         {estaLogado ? (
-          /* ISSO AQUI SUBSTITUI O BLOCO ANTIGO */
           <div className="navbar-user-dropdown" ref={dropdownRef}>
             <button 
               type="button"
@@ -63,7 +74,6 @@ return (
               {iniciais}
             </button>
 
-            {/* Menu flutuante que só aparece ao clicar na bolinha */}
             {menuAberto && (
               <div className="dropdown-menu">
                 <div className="dropdown-header">
