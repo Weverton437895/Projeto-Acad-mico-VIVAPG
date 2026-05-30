@@ -15,31 +15,36 @@
 ## Estrutura do Projeto
 
 ```
+## Estrutura do Projeto
+
 vivapg/
 ├── backend/               ← Spring Boot
 │   ├── pom.xml
 │   └── src/main/java/br/edu/fatecpg/vivapg/
-│       ├── config/        ← SecurityConfig
-│       ├── controller/    ← AuthController, BairroController,
-│       │                     RecomendacaoController, FavoritoController,
-│       │                     ComparacaoController, UsuarioController,
-│       │                     HistoricoController
-│       ├── model/         ← Usuario, Perfil, Bairro, Favorito,
-│       │                     Comparacao, Historico
-│       ├── repository/    ← 6 repositories MongoDB
-│       ├── security/      ← JwtService, JwtFilter
-│       └── service/       ← AuthService, UsuarioService,
-│                             RecomendacaoService, FavoritoService
+│       ├── config/        ← DataSeeder, SecurityConfig
+│       ├── controller/    ← ApistatusController.java, AuthController, BairroController,
+│       │                     ComparacaoController, FavoritoController, HistoricoController,
+│       │                     RecomendacaoController, UsuarioController
+│       ├── model/         ← Bairro, Comparacao, Favorito, Historico, Perfil, Usuario
+│       ├── repository/    ← BairroRepository, ComparacaoRepository, FavoritoRepository,
+│       │                     HistoricoRepository, PerfilRepository, Repositories.java,
+│       │                     UsuarioRepository
+│       ├── security/      ← JwtFilter, JwtService
+│       ├── service/       ← ApiIntegrationService, AuthService, FavoritoService,
+│       │                     RecomendacaoService, UsuarioService
+│       └── VivaPGApplication.java
 └── frontend/              ← React + Vite
     └── src/
         ├── components/
-        │   ├── layout/    ← Navbar
-        │   └── ui/        ← BairroCard, PainelAcessibilidade
-        ├── context/       ← AuthContext
-        ├── pages/         ← Home, Resultados, Comparacao,
-        │                     Login, Cadastro, MinhaConta
+        │   ├── layout/    ← Navbar.jsx
+        │   └── ui/        ← BairroCard.jsx, MapaModal.jsx, PainelAcessibilidade.jsx
+        ├── context/       ← AuthContext.jsx
+        ├── pages/         ← Cadastro.jsx, Comparacao.jsx, ConhecaPG.jsx, Home.jsx,
+        │                     Login.jsx, MinhaConta.jsx, Resultados.jsx, Sobre.jsx
         ├── services/      ← api.js (axios)
-        └── styles/        ← global.css
+        ├── styles/        ← global.css
+        ├── App.jsx
+        └── main.jsx
 ```
 
 ---
