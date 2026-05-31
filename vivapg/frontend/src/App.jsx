@@ -2,7 +2,6 @@ import React from 'react'
 import { Routes, Route } from 'react-router-dom'
 import { AuthProvider } from './context/AuthContext'
 import Navbar from './components/layout/Navbar'
-import PainelAcessibilidade from './components/ui/PainelAcessibilidade'
 import Home from './pages/Home'
 import Resultados from './pages/Resultados'
 import Comparacao from './pages/Comparacao'
@@ -26,7 +25,6 @@ export default function App() {
         <Route path="/minha-conta"  element={<MinhaConta />} />
         <Route path="/conheca-pg" element={<ConhecaPG />} />
       </Routes>
-      <PainelAcessibilidade />
     </AuthProvider>
   )
 }

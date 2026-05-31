@@ -33,7 +33,7 @@ public class ApiIntegrationService implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         log.info("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
-        log.info("🌐 Iniciando integração com APIs públicas...");
+        log.info(" Iniciando integração com APIs públicas...");
         log.info("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
 
         buscarCoordenadasNominatim();       // 1º: salva lat/lon
@@ -45,7 +45,6 @@ public class ApiIntegrationService implements CommandLineRunner {
 
     @SuppressWarnings({"unchecked","rawtypes"})
     private void buscarCoordenadasNominatim() {
-        // 🌟 URL CORRIGIDA PARA O ENDPOINT OFICIAL DE API DO NOMINATIM
         WebClient client = webClientBuilder
                 .baseUrl("https://nominatim.openstreetmap.org")
                 .defaultHeader("User-Agent", "VivaPG/1.0 FATEC-PraiaGrande")
